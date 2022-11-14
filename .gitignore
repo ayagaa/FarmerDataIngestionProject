@@ -1,5 +1,5 @@
-bin/*
-FAIL/*
-INPUT/*
-OUTPUT/*
-obj/*
+bin/
+FAIL/
+INPUT/
+OUTPUT/
+obj/
