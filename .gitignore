@@ -3,3 +3,4 @@ FAIL/
 INPUT/
 OUTPUT/
 obj/
+DbModels/FarmerDatabaseContext.cs
