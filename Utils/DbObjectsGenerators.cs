@@ -11,6 +11,8 @@ namespace FarmerDB.DataAccess.Utils
         public static List<TblFarmerProfile> FarmerProfiles = new List<TblFarmerProfile>();
         public static List<TblFarmerParcel> FarmerParcels = new List<TblFarmerParcel>();
         public static List<TblFarmerGroup> FarmerGroups = new List<TblFarmerGroup>();
+
+        public static List<FarmerDataModel> failedRecords = new List<FarmerDataModel>();
         public static void GenerateDbObjects(List<FarmerDataModel> farmerData, string adminIndexFolder)
         {
             var identifiers = Identifiers.GetUniqueIds(farmerData.Count + (farmerData.Count * 2)).ToList();
@@ -48,6 +50,15 @@ namespace FarmerDB.DataAccess.Utils
                                     {
                                         var characters = RandomLetters.GenerateRandomLetters(3);
                                         farmerId = farmerId.Substring(0, farmerId.Length - 3) + characters;
+                                    }
+
+                                    using (var dbContext = new FarmerDatabaseContext())
+                                    {
+                                        while (dbContext.TblFarmerProfiles.Any(p => p.FarmerId == farmerId))
+                                        {
+                                            var characters = RandomLetters.GenerateRandomLetters(4);
+                                            farmerId = farmerId.Substring(0, farmerId.Length - 4) + characters;
+                                        }
                                     }
 
                                     farmerData[index].FarmerId = farmerId;
@@ -90,6 +101,13 @@ namespace FarmerDB.DataAccess.Utils
                                         v.ValueChainName.ToLower().Trim() ==
                                         farmerData[index]?.ValueChainNameAlternative3?.ToLower()?.Trim());
 
+                                    var livestockPrimaryValueChain = valueChains?.FirstOrDefault(v =>
+                                        v.ValueChainName.ToLower().Trim() ==
+                                        farmerData[index].LivestockPrimaryValueChain?.ToLower()?.Trim());
+                                    var livestockAlternativeValueChain = valueChains?.FirstOrDefault(v =>
+                                        v.ValueChainName.ToLower().Trim() ==
+                                        farmerData[index].LivestockAlternativeValueChain?.ToLower()?.Trim());
+
                                     if (valueChainPrimary != null)
                                         FarmerParcels.Add(new TblFarmerParcel()
                                         {
@@ -98,8 +116,9 @@ namespace FarmerDB.DataAccess.Utils
                                             Longitude = farmerData[index].Longitude,
                                             ValueChainId = valueChainPrimary.ValueChainId,
                                             OwnershipType = farmerData[index].OwnershipType,
-                                            NumberOfLivestock = (int)farmerData[index].NumberOfLivestock,
-                                            ProductionSystem = farmerData[index].ProductionSystem
+                                            NumberOfLivestock = farmerData[index].NumberOfLivestock,
+                                            ProductionSystem = farmerData[index].ProductionSystem,
+                                            ValueChainPriority = "Primary"
 
                                         });
 
@@ -111,8 +130,9 @@ namespace FarmerDB.DataAccess.Utils
                                             Longitude = farmerData[index].Longitude,
                                             ValueChainId = valueChainAlternative1.ValueChainId,
                                             OwnershipType = farmerData[index].OwnershipType,
-                                            NumberOfLivestock = (int)farmerData[index].NumberOfLivestock,
-                                            ProductionSystem = farmerData[index].ProductionSystem
+                                            NumberOfLivestock = farmerData[index].NumberOfLivestock,
+                                            ProductionSystem = farmerData[index].ProductionSystem,
+                                            ValueChainPriority = "Alternative1"
                                         });
 
                                     if (valueChainAlternative2 != null)
@@ -123,8 +143,9 @@ namespace FarmerDB.DataAccess.Utils
                                             Longitude = farmerData[index].Longitude,
                                             ValueChainId = valueChainAlternative2.ValueChainId,
                                             OwnershipType = farmerData[index].OwnershipType,
-                                            NumberOfLivestock = (int)farmerData[index].NumberOfLivestock,
-                                            ProductionSystem = farmerData[index].ProductionSystem
+                                            NumberOfLivestock = farmerData[index].NumberOfLivestock,
+                                            ProductionSystem = farmerData[index].ProductionSystem,
+                                            ValueChainPriority = "Alternative2"
                                         });
 
                                     if (valueChainAlternative3 != null)
@@ -135,9 +156,40 @@ namespace FarmerDB.DataAccess.Utils
                                             Longitude = farmerData[index].Longitude,
                                             ValueChainId = valueChainAlternative3.ValueChainId,
                                             OwnershipType = farmerData[index].OwnershipType,
-                                            NumberOfLivestock = (int)farmerData[index].NumberOfLivestock,
-                                            ProductionSystem = farmerData[index].ProductionSystem
+                                            NumberOfLivestock = farmerData[index].NumberOfLivestock,
+                                            ProductionSystem = farmerData[index].ProductionSystem,
+                                            ValueChainPriority = "Alternative3"
                                         });
+
+                                    if (livestockPrimaryValueChain != null)
+                                    {
+                                        FarmerParcels.Add(new TblFarmerParcel()
+                                        {
+                                            FarmerId = farmerId,
+                                            Latitude = farmerData[index].Latitude,
+                                            Longitude = farmerData[index].Longitude,
+                                            ValueChainId = livestockPrimaryValueChain.ValueChainId,
+                                            OwnershipType = farmerData[index].OwnershipType,
+                                            NumberOfLivestock = farmerData[index].NumberOfLivestock,
+                                            ProductionSystem = farmerData[index].LivestockProductionSystem,
+                                            ValueChainPriority = "LivestockPrimary"
+                                        });
+                                    }
+
+                                    if (livestockAlternativeValueChain != null)
+                                    {
+                                        FarmerParcels.Add((new TblFarmerParcel()
+                                        {
+                                            FarmerId = farmerId,
+                                            Latitude = farmerData[index].Latitude,
+                                            Longitude = farmerData[index].Longitude,
+                                            ValueChainId = livestockAlternativeValueChain.ValueChainId,
+                                            OwnershipType = farmerData[index].OwnershipType,
+                                            NumberOfLivestock = farmerData[index].NumberOfLivestock,
+                                            ProductionSystem = farmerData[index].LivestockProductionSystem,
+                                            ValueChainPriority = "LivestockAlternative"
+                                        }));
+                                    }
 
                                     if (!string.IsNullOrEmpty(farmerData[index].GroupName))
                                         FarmerGroups.Add(new TblFarmerGroup()
@@ -153,9 +205,26 @@ namespace FarmerDB.DataAccess.Utils
                                 Console.WriteLine(e);
                             }
                         }
+                        else
+                        {
+                            failedRecords.Add(farmerData[index]);
+                        }
                     }
+                    else
+                    {
+                        failedRecords.Add(farmerData[index]);
+                    }
+
+
                 }
+                else
+                {
+                    failedRecords.Add(farmerData[index]);
+                }
+
+
             }
+            ReadWriteCSVFiles.WriteRootObjectFile(@"C:\DataIngestion\FAIL\Failed-RawDbObjects.csv", failedRecords);
         }
     }
 }

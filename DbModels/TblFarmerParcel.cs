@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace FarmerDB.DataAccess.DbModels;
+﻿namespace FarmerDB.DataAccess.DbModels;
 
 public partial class TblFarmerParcel
 {
@@ -15,7 +12,7 @@ public partial class TblFarmerParcel
 
     public int ValueChainId { get; set; }
 
-    public int? NumberOfLivestock { get; set; }
+    public double? NumberOfLivestock { get; set; }
 
     public string? OwnershipType { get; set; }
 

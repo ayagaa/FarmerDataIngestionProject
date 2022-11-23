@@ -10,7 +10,7 @@
         public string PhoneNo { get; set; }
         public string HouseholdSize { get; set; }
         public string Gender { get; set; }
-        public int YearOfBirth { get; set; } = 1000;
+        public int? YearOfBirth { get; set; } = 1000;
         public string EducationLevel { get; set; }
         public string Admin1Id { get; set; }
         public string Admin3Id { get; set; }
@@ -20,13 +20,17 @@
         public double? Latitude { get; set; } = 0;
         public double? Longitude { get; set; } = 0;
         public double? Acreage { get; set; } = 0;
-        public double NumberOfLivestock { get; set; } = 0;
+        public double? NumberOfLivestock { get; set; } = 0;
         public string ProductionSystem { get; set; }
         public string OwnershipType { get; set; }
         public string ValueChainNamePrimary { get; set; }
         public string ValueChainNameAlternative1 { get; set; }
         public string ValueChainNameAlternative2 { get; set; }
         public string ValueChainNameAlternative3 { get; set; }
+
+        public string LivestockPrimaryValueChain { get; set; }
+
+        public string LivestockAlternativeValueChain { get; set; }
         public string ValueChainType { get; set; }
         public string Source { get; set; }
         public string KCSAPBeneficiaries { get; set; }
@@ -34,6 +38,8 @@
         public string GroupName { get; set; }
 
         public string GroupType { get; set; }
+
+        public string LivestockProductionSystem { get; set; }
 
         public string CountyId { get; set; }
         public string CountyName { get; set; }

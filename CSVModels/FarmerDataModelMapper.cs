@@ -67,6 +67,9 @@ namespace FarmerDB.DataAccess.CSVModels
             Map(m => m.KCSAPBeneficiaries).Name("KCSAPBeneficiaries");
             Map(m => m.GroupName).Name("GroupName");
             Map(m => m.GroupType).Name("GroupType");
+            Map(m => m.LivestockProductionSystem).Name("LivestockProductionSystem");
+            Map(m => m.LivestockPrimaryValueChain).Name("LivestockPrimaryValueChain");
+            Map(m => m.LivestockAlternativeValueChain).Name("LivestockAlternativeValueChain");
         }
     }
 }
