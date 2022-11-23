@@ -55,5 +55,23 @@ namespace FarmerDB.DataAccess.Utils
             }
             return false;
         }
+
+        public static bool InsertFarmerWithGroup(TblFarmerGroup farmerGroup)
+        {
+            try
+            {
+                using var dbContext = new FarmerDatabaseContext();
+                dbContext.Add(farmerGroup);
+                dbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error while inserting farmer with group");
+                Console.WriteLine(e);
+            }
+
+            return false;
+        }
     }
 }

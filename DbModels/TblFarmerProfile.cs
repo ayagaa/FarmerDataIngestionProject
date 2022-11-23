@@ -39,5 +39,11 @@ public partial class TblFarmerProfile
 
     public string? KcsapBeneficiary { get; set; }
 
+    public virtual TblCounty County { get; set; } = null!;
+
+    public virtual ICollection<TblFarmerGroup> TblFarmerGroups { get; } = new List<TblFarmerGroup>();
+
     public virtual ICollection<TblFarmerParcel> TblFarmerParcels { get; } = new List<TblFarmerParcel>();
+
+    public virtual TblWard Ward { get; set; } = null!;
 }

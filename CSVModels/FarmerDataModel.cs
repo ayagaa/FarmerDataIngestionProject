@@ -31,6 +31,10 @@
         public string Source { get; set; }
         public string KCSAPBeneficiaries { get; set; }
 
+        public string GroupName { get; set; }
+
+        public string GroupType { get; set; }
+
         public string CountyId { get; set; }
         public string CountyName { get; set; }
 

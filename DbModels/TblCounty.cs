@@ -9,6 +9,8 @@ public partial class TblCounty
 
     public string CountyName { get; set; } = null!;
 
+    public virtual ICollection<TblFarmerProfile> TblFarmerProfiles { get; } = new List<TblFarmerProfile>();
+
     public virtual ICollection<TblSubCounty> TblSubCounties { get; } = new List<TblSubCounty>();
 
     public virtual ICollection<TblWard> TblWards { get; } = new List<TblWard>();

@@ -10,6 +10,7 @@ namespace FarmerDB.DataAccess.Utils
         private static float longitude = 0;
         public static List<TblFarmerProfile> FarmerProfiles = new List<TblFarmerProfile>();
         public static List<TblFarmerParcel> FarmerParcels = new List<TblFarmerParcel>();
+        public static List<TblFarmerGroup> FarmerGroups = new List<TblFarmerGroup>();
         public static void GenerateDbObjects(List<FarmerDataModel> farmerData, string adminIndexFolder)
         {
             var identifiers = Identifiers.GetUniqueIds(farmerData.Count + (farmerData.Count * 2)).ToList();
@@ -95,7 +96,11 @@ namespace FarmerDB.DataAccess.Utils
                                             FarmerId = farmerId,
                                             Latitude = farmerData[index].Latitude,
                                             Longitude = farmerData[index].Longitude,
-                                            ValueChainId = valueChainPrimary.ValueChainId
+                                            ValueChainId = valueChainPrimary.ValueChainId,
+                                            OwnershipType = farmerData[index].OwnershipType,
+                                            NumberOfLivestock = (int)farmerData[index].NumberOfLivestock,
+                                            ProductionSystem = farmerData[index].ProductionSystem
+
                                         });
 
                                     if (valueChainAlternative1 != null)
@@ -104,7 +109,10 @@ namespace FarmerDB.DataAccess.Utils
                                             FarmerId = farmerId,
                                             Latitude = farmerData[index].Latitude,
                                             Longitude = farmerData[index].Longitude,
-                                            ValueChainId = valueChainAlternative1.ValueChainId
+                                            ValueChainId = valueChainAlternative1.ValueChainId,
+                                            OwnershipType = farmerData[index].OwnershipType,
+                                            NumberOfLivestock = (int)farmerData[index].NumberOfLivestock,
+                                            ProductionSystem = farmerData[index].ProductionSystem
                                         });
 
                                     if (valueChainAlternative2 != null)
@@ -113,7 +121,10 @@ namespace FarmerDB.DataAccess.Utils
                                             FarmerId = farmerId,
                                             Latitude = farmerData[index].Latitude,
                                             Longitude = farmerData[index].Longitude,
-                                            ValueChainId = valueChainAlternative2.ValueChainId
+                                            ValueChainId = valueChainAlternative2.ValueChainId,
+                                            OwnershipType = farmerData[index].OwnershipType,
+                                            NumberOfLivestock = (int)farmerData[index].NumberOfLivestock,
+                                            ProductionSystem = farmerData[index].ProductionSystem
                                         });
 
                                     if (valueChainAlternative3 != null)
@@ -122,7 +133,18 @@ namespace FarmerDB.DataAccess.Utils
                                             FarmerId = farmerId,
                                             Latitude = farmerData[index].Latitude,
                                             Longitude = farmerData[index].Longitude,
-                                            ValueChainId = valueChainAlternative3.ValueChainId
+                                            ValueChainId = valueChainAlternative3.ValueChainId,
+                                            OwnershipType = farmerData[index].OwnershipType,
+                                            NumberOfLivestock = (int)farmerData[index].NumberOfLivestock,
+                                            ProductionSystem = farmerData[index].ProductionSystem
+                                        });
+
+                                    if (!string.IsNullOrEmpty(farmerData[index].GroupName))
+                                        FarmerGroups.Add(new TblFarmerGroup()
+                                        {
+                                            FarmerId = farmerId,
+                                            GroupName = farmerData[index].GroupName,
+                                            GroupType = farmerData[index].GroupType
                                         });
                                 }
                             }

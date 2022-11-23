@@ -15,6 +15,14 @@ public partial class TblFarmerParcel
 
     public int ValueChainId { get; set; }
 
+    public int? NumberOfLivestock { get; set; }
+
+    public string? OwnershipType { get; set; }
+
+    public string? ProductionSystem { get; set; }
+
+    public string? ValueChainPriority { get; set; }
+
     public virtual TblFarmerProfile Farmer { get; set; } = null!;
 
     public virtual TblValueChain ValueChain { get; set; } = null!;

@@ -16,4 +16,6 @@ public partial class TblWard
     public virtual TblCounty County { get; set; } = null!;
 
     public virtual TblSubCounty? Subcounty { get; set; }
+
+    public virtual ICollection<TblFarmerProfile> TblFarmerProfiles { get; } = new List<TblFarmerProfile>();
 }

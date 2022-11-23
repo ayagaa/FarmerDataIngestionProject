@@ -65,6 +65,8 @@ namespace FarmerDB.DataAccess.CSVModels
             Map(m => m.ValueChainType).Name("ValueChainType");
             Map(m => m.Source).Name("Source");
             Map(m => m.KCSAPBeneficiaries).Name("KCSAPBeneficiaries");
+            Map(m => m.GroupName).Name("GroupName");
+            Map(m => m.GroupType).Name("GroupType");
         }
     }
 }
