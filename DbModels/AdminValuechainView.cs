@@ -16,4 +16,10 @@ public partial class AdminValuechainView
     public string ValueChainName { get; set; } = null!;
 
     public string? Gender { get; set; }
+
+    public string? OwnershipType { get; set; }
+
+    public string? DataSource { get; set; }
+
+    public string? KcsapBeneficiary { get; set; }
 }

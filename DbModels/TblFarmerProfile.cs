@@ -13,7 +13,7 @@ public partial class TblFarmerProfile
 
     public string? NationalId { get; set; }
 
-    public string PhoneNo { get; set; } = null!;
+    public string? PhoneNo { get; set; }
 
     public string? HouseholdSize { get; set; }
 
@@ -38,8 +38,6 @@ public partial class TblFarmerProfile
     public string? DataSource { get; set; }
 
     public string? KcsapBeneficiary { get; set; }
-
-    public virtual TblCounty County { get; set; } = null!;
 
     public virtual ICollection<TblFarmerGroup> TblFarmerGroups { get; } = new List<TblFarmerGroup>();
 

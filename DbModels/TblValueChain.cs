@@ -11,5 +11,9 @@ public partial class TblValueChain
 
     public int? ValueChainTypeId { get; set; }
 
+    public int CategoryId { get; set; }
+
+    public virtual TblValueChainCategory Category { get; set; } = null!;
+
     public virtual ICollection<TblFarmerParcel> TblFarmerParcels { get; } = new List<TblFarmerParcel>();
 }

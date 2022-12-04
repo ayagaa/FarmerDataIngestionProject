@@ -1,4 +1,7 @@
-﻿namespace FarmerDB.DataAccess.DbModels;
+﻿using System;
+using System.Collections.Generic;
+
+namespace FarmerDB.DataAccess.DbModels;
 
 public partial class TblFarmerParcel
 {
